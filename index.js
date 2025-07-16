@@ -1,16 +1,20 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 require("dotenv").config();
 const database = require("./config/database");
 
-const route = require("./api/v1/routes/index.route");
+const routesApiVer1 = require("./api/v1/routes/index.route");
 
 database.connect();
 
 const app = express()
 const port = process.env.PORT;
 
-//Router
-route(app);
+// parse application/json
+app.use(bodyParser.json())
+
+// RoutesApiVer1
+routesApiVer1(app);
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
